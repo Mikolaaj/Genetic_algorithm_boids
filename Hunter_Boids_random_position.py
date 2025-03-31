@@ -1,24 +1,22 @@
-import tkinter as tk # Biblioteka GUI dla języka Python, umożliwia tworzenie interfejsów użytkownika (nazwa jako tk)
-import math # Biblioteka matematyczna
-import random #Biblioteka do generowania liczb losowych
+import tkinter as tk 
+import math 
+import random
 
-#Klasa ta reprezentuje szkielet obiektu
 class Creature:
-    def __init__(self, canvas, x, y, color, sensing_radius, direction, speed): #Konstruktor, inicjalizacja obiektu z określonymi parametrami
-        self.canvas = canvas #zmienna do naniesienia na plansze
-        self.id = canvas.create_oval(x, y, x+20, y+20, fill=color) #Stworzenie okregu na planszy o danych parametrach
-        self.direction = direction #Zmienna kierunku
-        self.speed = speed #Zmienna prędkości
-        self.sensing_radius = sensing_radius #Zmienna strefy czucia
-        self.sensing_circle = canvas.create_oval(x-1, y-1, x+1, y+1, outline='gray') #Stworzenie strefy czucia na plaszny
-        self.arrow = canvas.create_line(x, y, x, y, arrow=tk.LAST) #Zmienna do wizualizacji kierunku
+    def __init__(self, canvas, x, y, color, sensing_radius, direction, speed):
+        self.canvas = canvas
+        self.id = canvas.create_oval(x, y, x+20, y+20, fill=color)
+        self.direction = direction
+        self.speed = speed
+        self.sensing_radius = sensing_radius
+        self.sensing_circle = canvas.create_oval(x-1, y-1, x+1, y+1, outline='gray')
+        self.arrow = canvas.create_line(x, y, x, y, arrow=tk.LAST)
 
-    def move(self): #Zawijanie ekranu
-        dx = self.speed * math.cos(math.radians(self.direction)) #Zmiana położenia w osi X
-        dy = self.speed * math.sin(math.radians(self.direction)) #Zmiana położenia w osi Y
-        x1, y1, x2, y2 = self.canvas.coords(self.id) #Pobranie współrzędnych lewej gónej i prawej dolnej
+    def move(self):
+        dx = self.speed * math.cos(math.radians(self.direction))
+        dy = self.speed * math.sin(math.radians(self.direction))
+        x1, y1, x2, y2 = self.canvas.coords(self.id)
         
-        #Zawijanie ekranu
         new_x1 = (x1 + dx) % self.canvas.winfo_width() #nowa współrzędna lewa górna x1 
         new_y1 = (y1 + dy) % self.canvas.winfo_height() #nowa współrzędna lewa górna y1
         new_x2 = (x2 + dx) % self.canvas.winfo_width() #nowa współrzędna prawa górna x1
